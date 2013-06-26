@@ -76,26 +76,17 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
         PreferenceScreen prefScreen = getPreferenceScreen();
 
         // Only show the navigation bar config on phones that has a navigation bar
+        boolean removeNavbar = false;
         try {
+            IWindowManager windowManager = IWindowManager.Stub.asInterface(
+                    ServiceManager.getService(Context.WINDOW_SERVICE));
             if (!windowManager.hasNavigationBar()) {
+                removeNavbar = true;
                 prefScreen.removePreference((PreferenceCategory)findPreference(KEY_NAVIGATION_BAR_CATEGORY));
             }
         } catch (RemoteException e) {
             // Do nothing
         }
-
-        // Show navbar
-        mShowNavbar = (CheckBoxPreference) findPreference(KEY_SHOW_NAVBAR);
-        mShowNavbar.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
-            SystemSettings.KEY_SHOW_NAVBAR, 0) == 1);
-
-        // Navbar height
-        mNavButtonsHeight = (ListPreference) findPreference(KEY_NAVIGATION_HEIGHT);
-        mNavButtonsHeight.setOnPreferenceChangeListener(this);
-        int statusNavButtonsHeight = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                Settings.System.NAV_BUTTONS_HEIGHT, 48);
-        mNavButtonsHeight.setValue(String.valueOf(statusNavButtonsHeight));
-        mNavButtonsHeight.setSummary(mNavButtonsHeight.getEntry());
 
         // Determine which user is logged in
         mIsPrimary = UserHandle.myUserId() == UserHandle.USER_OWNER;
@@ -113,6 +104,21 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
         } else {
             // Secondary user is logged in, remove all primary user specific preferences
             prefScreen.removePreference(findPreference(KEY_BATTERY_LIGHT));
+        }
+
+        // Show navbar
+        mShowNavbar = (CheckBoxPreference) findPreference(KEY_SHOW_NAVBAR);
+        mShowNavbar.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+            SystemSettings.KEY_SHOW_NAVBAR, 0) == 1);
+
+        // Navbar height
+        mNavButtonsHeight = (ListPreference) findPreference(KEY_NAVIGATION_HEIGHT);
+        if (mNavButtonsHeight != null) {
+            mNavButtonsHeight.setOnPreferenceChangeListener(this);
+            int statusNavButtonsHeight = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.NAV_BUTTONS_HEIGHT, 48);
+            mNavButtonsHeight.setValue(String.valueOf(statusNavButtonsHeight));
+            mNavButtonsHeight.setSummary(mNavButtonsHeight.getEntry());
         }
 
         // Preferences that applies to all users

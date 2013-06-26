@@ -26,6 +26,7 @@ import android.os.UserHandle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.CheckBoxPreference;
 import android.provider.Settings;
@@ -75,7 +76,26 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
         PreferenceScreen prefScreen = getPreferenceScreen();
 
         // Only show the navigation bar config on phones that has a navigation bar
-        boolean removeNavbar = false;
+        try {
+            if (!windowManager.hasNavigationBar()) {
+                prefScreen.removePreference((PreferenceCategory)findPreference(KEY_NAVIGATION_BAR_CATEGORY));
+            }
+        } catch (RemoteException e) {
+            // Do nothing
+        }
+
+        // Show navbar
+        mShowNavbar = (CheckBoxPreference) findPreference(KEY_SHOW_NAVBAR);
+        mShowNavbar.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+            SystemSettings.KEY_SHOW_NAVBAR, 0) == 1);
+
+        // Navbar height
+        mNavButtonsHeight = (ListPreference) findPreference(KEY_NAVIGATION_HEIGHT);
+        mNavButtonsHeight.setOnPreferenceChangeListener(this);
+        int statusNavButtonsHeight = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.NAV_BUTTONS_HEIGHT, 48);
+        mNavButtonsHeight.setValue(String.valueOf(statusNavButtonsHeight));
+        mNavButtonsHeight.setSummary(mNavButtonsHeight.getEntry());
 
         // Determine which user is logged in
         mIsPrimary = UserHandle.myUserId() == UserHandle.USER_OWNER;
@@ -90,50 +110,9 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
                     mBatteryPulse = null;
                 }
             }
-
-            // Show navbar
-            mShowNavbar = (CheckBoxPreference) findPreference(KEY_SHOW_NAVBAR);
-            mShowNavbar.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
-                    SystemSettings.KEY_SHOW_NAVBAR, 0) == 1);
-
-            // Navbar height
-            mNavButtonsHeight = (ListPreference) findPreference(KEY_NAVIGATION_HEIGHT);
-            mNavButtonsHeight.setOnPreferenceChangeListener(this);
-
-            int statusNavButtonsHeight = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.NAV_BUTTONS_HEIGHT, 48);
-            mNavButtonsHeight.setValue(String.valueOf(statusNavButtonsHeight));
-            mNavButtonsHeight.setSummary(mNavButtonsHeight.getEntry());
-
-            IWindowManager windowManager = IWindowManager.Stub.asInterface(
-                    ServiceManager.getService(Context.WINDOW_SERVICE));
-            try {
-                if (!windowManager.hasNavigationBar()) {
-                    removeNavbar = true;
-                }
-            } catch (RemoteException e) {
-                // Do nothing
-            }
-
-            // Act on the above
-            if (removeNavbar) {
-                prefScreen.removePreference(findPreference(KEY_NAVIGATION_BAR));
-                prefScreen.removePreference(findPreference(KEY_NAVIGATION_RING));
-                prefScreen.removePreference(findPreference(KEY_NAVIGATION_HEIGHT));
-                prefScreen.removePreference(findPreference(KEY_NAVIGATION_BAR_CATEGORY));
-            }
         } else {
             // Secondary user is logged in, remove all primary user specific preferences
             prefScreen.removePreference(findPreference(KEY_BATTERY_LIGHT));
-            prefScreen.removePreference(findPreference(KEY_HARDWARE_KEYS));
-            prefScreen.removePreference(findPreference(KEY_NAVIGATION_BAR));
-            prefScreen.removePreference(findPreference(KEY_NAVIGATION_RING));
-            prefScreen.removePreference(findPreference(KEY_NAVIGATION_HEIGHT));
-            prefScreen.removePreference(findPreference(KEY_NAVIGATION_BAR_CATEGORY));
-            prefScreen.removePreference(findPreference(KEY_STATUS_BAR));
-            prefScreen.removePreference(findPreference(KEY_QUICK_SETTINGS));
-            prefScreen.removePreference(findPreference(KEY_POWER_MENU));
-            prefScreen.removePreference(findPreference(KEY_NOTIFICATION_DRAWER));
         }
 
         // Preferences that applies to all users

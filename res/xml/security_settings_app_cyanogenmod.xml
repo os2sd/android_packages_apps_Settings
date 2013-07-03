@@ -21,7 +21,6 @@
         android:key="app_security"
         android:title="@string/app_security_title">
 
-        <!-- Permissions management -->
         <PreferenceScreen
             android:key="permission_settings"
             android:title="@string/permissions_settings_title"
@@ -31,11 +30,11 @@
                     android:targetClass="org.chameleonos.permissionsmanager.activity.PermissionManagerActivity" />
         </PreferenceScreen>
 
-        <CheckBoxPreference
-            android:key="privacy_guard_default"
-            android:title="@string/privacy_guard_default_title"
-            android:summary="@string/privacy_guard_default_summary"
-            android:persistent="false" />
+        <Preference
+            android:fragment="com.android.settings.cyanogenmod.privacyguard.PrivacyGuardManager"
+            android:key="privacy_guard_manager"
+            android:summary="@string/privacy_guard_manager_summary"
+            android:title="@string/privacy_guard_manager_title" />
 
         <ListPreference
             android:key="sms_security_check_limit"

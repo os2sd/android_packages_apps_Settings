@@ -21,15 +21,6 @@
         android:key="app_security"
         android:title="@string/app_security_title">
 
-        <PreferenceScreen
-            android:key="permission_settings"
-            android:title="@string/permissions_settings_title"
-            android:summary="@string/permissions_settings_summary">
-            <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="org.chameleonos.permissionsmanager"
-                    android:targetClass="org.chameleonos.permissionsmanager.activity.PermissionManagerActivity" />
-        </PreferenceScreen>
-
         <Preference
             android:fragment="com.android.settings.cyanogenmod.privacyguard.PrivacyGuardManager"
             android:key="privacy_guard_manager"

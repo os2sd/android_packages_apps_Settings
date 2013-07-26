@@ -40,4 +40,8 @@
     <string name="navigation_bar_height_28">28dp</string>
     <string name="navigation_bar_height_24">24dp</string>
 
+    <!-- Hardware rendering -->
+    <string name="hwa_settings_title">Hardware rendering</string>
+    <string name="hwa_settings_summary">Use hardware acceleration for selected applications</string>
+
 </resources>

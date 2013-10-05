@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The CyanogenMod Project
+ * Copyright (C) 2013 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,14 @@ package com.android.settings.cyanogenmod;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.SystemProperties;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.util.Log;
+import android.text.TextUtils;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -38,10 +39,12 @@ import java.util.regex.Pattern;
 public class PerformanceSettings extends SettingsPreferenceFragment {
     private static final String TAG = "PerformanceSettings";
 
+    private static final String PERF_PROFILE_PREF = "performance_profile";
     private static final String USE_16BPP_ALPHA_PREF = "pref_use_16bpp_alpha";
     private static final String USE_16BPP_ALPHA_PROP = "persist.sys.use_16bpp_alpha";
     private static final String HWA_SETTINGS_KEY = "hwa_settings";
 
+    private Preference mPerfProfilePref;
     private CheckBoxPreference mUse16bppAlphaPref;
     private AlertDialog alertDialog;
 
@@ -51,7 +54,14 @@ public class PerformanceSettings extends SettingsPreferenceFragment {
 
         addPreferencesFromResource(R.xml.performance_settings);
 
+        final Resources res = getResources();
         PreferenceScreen prefSet = getPreferenceScreen();
+
+        mPerfProfilePref = prefSet.findPreference(PERF_PROFILE_PREF);
+        String perfProfileProp = getString(R.string.config_perf_profile_prop);
+        if (mPerfProfilePref != null && TextUtils.isEmpty(perfProfileProp)) {
+            prefSet.removePreference(mPerfProfilePref);
+        }
 
         mUse16bppAlphaPref = (CheckBoxPreference) prefSet.findPreference(USE_16BPP_ALPHA_PREF);
         String use16bppAlpha = SystemProperties.get(USE_16BPP_ALPHA_PROP, "0");

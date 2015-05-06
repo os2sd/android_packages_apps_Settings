@@ -23,7 +23,6 @@
     <string name="partition_info_data" translatable="false">/data</string>
     <string name="partition_info_cache" translatable="false">/cache</string>
     <string name="partition_info_sdcard" translatable="false">/sdcard (FAT)</string>
-    <string name="partition_info_sdext" translatable="false">/sd-ext (EXT)</string>
     <string name="partition_info_used_of" translatable="false">/</string>
 
 </resources>

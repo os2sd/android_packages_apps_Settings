@@ -17,60 +17,60 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="wifi_countrycode_entries">
-    <item>ئەمریکا</item>
-    <item>کەنەدا،تایوان</item>
-    <item>ئەلمانیا</item>
-    <item>ئەوروپا</item>
-    <item>ژاپۆن, ڕووسیا</item>
-    <item>ئوسترالیا</item>
-    <item>چین</item>
-    <item>کۆڕیا</item>
-    <item>تورکیا</item>
-    <item>سینگاپوور</item>
-    <item>به‌ڕازیل</item>
-    <item>هیندستان</item>
+    <item>Združene države</item>
+    <item>Kanada, Tajvan</item>
+    <item>Nemčija</item>
+    <item>Evropa</item>
+    <item>Japonska, Rusija</item>
+    <item>Avstralija</item>
+    <item>Kitajska</item>
+    <item>Koreja</item>
+    <item>Turčija</item>
+    <item>Singapur</item>
+    <item>Brazilija</item>
+    <item>Indija</item>
   </string-array>
   <string-array name="profile_entries">
-    <item>چالاک</item>
-    <item>ناچالاک</item>
-    <item>زیادەڕەوی نیە</item>
+    <item>Vkl.</item>
+    <item>Izk.</item>
+    <item>Brez preglasitev</item>
   </string-array>
   <string-array name="profile_connection_entries">
-    <item>ناچالاککردن</item>
-    <item>چالاککردن</item>
+    <item>Onemogoči</item>
+    <item>Omogoči</item>
   </string-array>
   <string-array name="entries_screentimeout_widget">
-    <item>١٥s | ١m | ٥m</item>
-    <item>٣٠s | ٢m | ٥m</item>
+    <item>15 s | 1 min. | 5 min.</item>
+    <item>30 s | 2 min. | 5 min.</item>
   </string-array>
   <string-array name="data_usage_cycle_length">
-    <item>ڕۆژانە</item>
-    <item>هەفتانە</item>
-    <item>مانگانە</item>
+    <item>Dnevno</item>
+    <item>Tedensko</item>
+    <item>Mesečno</item>
   </string-array>
   <string-array name="data_usage_cycle_weekdays">
-    <item>یەکشەممە</item>
-    <item>دووشەممە</item>
-    <item>سێشەممە</item>
-    <item>چوارشەممە</item>
-    <item>پێنچ شەممە</item>
-    <item>هەینی</item>
-    <item>شەممە</item>
+    <item>Nedelja</item>
+    <item>Ponedeljek</item>
+    <item>Torek</item>
+    <item>Sreda</item>
+    <item>Četrtek</item>
+    <item>Petek</item>
+    <item>Sobota</item>
   </string-array>
   <string-array name="app_ops_permissions">
-    <item>ڕێپێدراوه</item>
-    <item>نکوڵی کرا</item>
-    <item>هەمیشه پرسیارکردن</item>
+    <item>Dovoljeno</item>
+    <item>Zavrnjeno</item>
+    <item>Vedno vprašaj</item>
   </string-array>
   <string-array name="qs_quick_access_size_entries">
-    <item>خۆکارانه‌</item>
-    <item>خۆکارانه‌(ته‌نگ)</item>
-    <item>گه‌وره‌</item>
-    <item>ته‌نگ</item>
+    <item>Samodejno</item>
+    <item>Samodejno (ozko)</item>
+    <item>Veliko</item>
+    <item>Ozko</item>
   </string-array>
   <string-array name="screen_color_setting">
-    <item>ستاندارد</item>
-    <item>Vivid</item>
-    <item>بەکەسیکراو</item>
+    <item>Običajno</item>
+    <item>Živahno</item>
+    <item>Po meri</item>
   </string-array>
 </resources>
